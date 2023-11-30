@@ -7,19 +7,30 @@ class Api::V1::SessionsController < ApplicationController
     @user = User.find_by(username: request_data['username'])
 
     if @user
-      render json: {status: 200, message: "User logged in successfully.", user: {id: @user.id, username: @user.username, authentication_token: @user.authentication_token}}, status: :ok
+      render json: {
+               status: 200,
+               message: 'User logged in successfully.',
+               user: {
+                 id: @user.id,
+                 username: @user.username,
+                 authentication_token: @user.authentication_token
+               }
+             },
+             status: :ok
     else
-      render json: {status: 404, message: "User not found."}, status: :not_found
+      render json: { status: 404, message: 'User not found.' }, status: :not_found
     end
   end
 end
 
 # How to use this controller:
 #
-# 1. Make a POST request to http://localhost:3000/api/v1/sessions with a JSON body containing the username of the user you want to log in.
-# 2. If the user is found, you will receive a JSON response with a status code of 200 and a message of "User logged in successfully.".
-# 3. If the user is not found, you will receive a JSON response with a status code of 404 and a message of "User not found.".
-
+# 1. Make a POST request to http://localhost:3000/api/v1/sessions with a JSON body
+# containing the username of the user you want to log in.
+# 2. If the user is found, you will receive a JSON response with a status code of 200
+# and a message of "User logged in successfully.".
+# 3. If the user is not found, you will receive a JSON response with a
+# status code of 404 and a message of "User not found.".
 
 # How to effectively communicate with this controller:
 #
@@ -45,4 +56,3 @@ end
 #     console.error('An error occurred during login:', error);
 #   }
 # };
-
