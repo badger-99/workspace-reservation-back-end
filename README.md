@@ -12,14 +12,10 @@
     - [Key Features ](#key-features-)
   - [💻 Getting Started ](#-getting-started-)
     - [Prerequisites](#prerequisites)
-  - [Setup for the backend](#setup-for-the-backend)
+  - [Setup](#setup)
     - [Install](#install)
     - [Run tests](#run-tests)
     - [Usage](#usage)
-  - [Setup for the frontend](#setup-for-the-frontend)
-    - [Install](#install-1)
-    - [Run tests](#run-tests-1)
-    - [Usage](#usage-1)
   - [👥 Authors ](#-authors-)
   - [🔭 Future Features ](#-future-features-)
   - [🤝 Contributing ](#-contributing-)
@@ -32,6 +28,8 @@
 
 The **Workspace** app is a fullstack project that allows coworking space owners to manage their space and users to book a rooms. It is a Ruby on Rails app with a PostgreSQL database for the backend and Rails/Redux for the frontend.
 
+This repository contains the backend part of the project. The frontend part can be found [here](https://github.com/Zilola-Nazarova/workspace-reservation-front-end)
+
 ### Demo
 [Link coming soon](#)
 
@@ -41,9 +39,6 @@ The **Workspace** app is a fullstack project that allows coworking space owners 
 
 - **[Ruby](https://www.ruby-lang.org/en/)**
 - **[Ruby on Rails](https://rubyonrails.org/)**
-- **[JavaScript](https://www.javascript.com/)**
-- **[React](https://reactjs.org/)**
-- **[Redux](https://redux.js.org/)**
 - **[PostgreSQL](https://www.postgresql.org/)**
 - **[RSpec](https://rspec.info/)**
 - **[Capybara](https://github.com/teamcapybara/capybara)**
@@ -75,7 +70,7 @@ In order to run this project you need:
 - [Ruby on Rails](https://gorails.com/guides) installed;
 - [Node.js and npm](https://nodejs.org/) installed.
 
-## Setup for the backend
+## Setup
 
 Clone this repository to your desired folder:
 
@@ -104,27 +99,6 @@ Then run the rails server
 `rails s`
 
 And now you should be able to see the project running on [localhost:3000](http://localhost:3000/)
-
-## Setup for the frontend
-
-Clone this repository to your desired folder:
-
-`git clone git@github.com:Zilola-Nazarova/workspace-reservation-front-end.git`
-
-### Install
-
-Install the required packages
-`npm install`
-
-### Run tests
-
-Run the tests using
-`npm run test`
-
-### Usage
-
-Then run the app with the command
-`npm run start`
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
