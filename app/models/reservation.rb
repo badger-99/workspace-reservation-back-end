@@ -8,6 +8,6 @@ class Reservation < ApplicationRecord
   validates :workspace, presence: true, allow_blank: false
   validates :user, presence: true, allow_blank: false
 
-  validates_uniqueness_of :start_date, scope: [:workspace_id, :city]
-  validates_uniqueness_of :end_date, scope: [:workspace_id, :city]
+  validates_uniqueness_of :start_date, scope: %i[workspace_id city]
+  validates_uniqueness_of :end_date, scope: %i[workspace_id city]
 end
