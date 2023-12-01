@@ -18,7 +18,7 @@ Workspace.create(name: 'Room 2',description: 'An even nicer room.',image: 'https
 Workspace.create(name: 'Room 3',description: 'A really really noce room.',image: 'https://www.rukita.co/stories/wp-content/uploads/2020/01/coworking-space-in-jakarta.jpg')
 Workspace.create(name: 'Room 4',description: 'Brobably the best room.',image: 'https://www.richmontsthailand.com/application/files/7015/4642/4755/Co-working_space_2.jpg')
 
-Reservation.create(city: 'Tokyo', start_date: Date.now, end_date: Date.now, user_id: '3', workspace_id: '2')
-Reservation.create(city: 'Bali', start_date: Date.now, end_date: Date.now, user_id: '2', workspace_id: '3')
-Reservation.create(city: 'Reykjavik', start_date: Date.now, end_date: Date.now, user_id: '1', workspace_id: '4')
-Reservation.create(city: 'Lisbon', start_date: Date.now, end_date: Date.now, user_id: '4', workspace_id: '1')
+Reservation.create(city: 'Tokyo', start_date: Date.new(2024, 12, 1), end_date: Date.new(2024, 12, 1), user_id: '3', workspace_id: '2')
+Reservation.create(city: 'Bali', start_date: Date.new(2024, 12, 1), end_date: Date.new(2024, 12, 1), user_id: '2', workspace_id: '3')
+Reservation.create(city: 'Reykjavik', start_date: Date.new(2024, 12, 1), end_date: Date.new(2024, 12, 1), user_id: '1', workspace_id: '4')
+Reservation.create(city: 'Lisbon', start_date: Date.new(2024, 12, 1), end_date: Date.new(2024, 12, 1), user_id: '4', workspace_id: '1')
