@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_01_115314) do
+ActiveRecord::Schema[7.1].define(version: 2023_12_01_120745) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -23,6 +23,8 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_01_115314) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_reservations_on_user_id"
+    t.index ["workspace_id", "end_date", "city"], name: "index_reservations_on_workspace_end_date_city", unique: true
+    t.index ["workspace_id", "start_date", "city"], name: "index_reservations_on_workspace_start_date_city", unique: true
     t.index ["workspace_id"], name: "index_reservations_on_workspace_id"
   end
 
