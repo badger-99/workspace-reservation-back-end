@@ -1,10 +1,12 @@
-class WorkspacesController < ApplicationController
+class Api::V1::WorkspacesController < ApplicationController
   def index
     @workspaces = Workspace.all
+    render json: { workspaces: @workspaces }
   end
 
   def show
-    @workspace = Workspace.find(params[:workspace_id])
+    @workspace = Workspace.find(params[:id])
+    render json: { workspaces: @workspace }
   end
 
   def create
