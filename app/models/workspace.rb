@@ -1,5 +1,7 @@
 class Workspace < ApplicationRecord
-  validates :name, presence: true
-  validates :description, presence: true
-  validates :image, presence: true
+  validates :name, presence: true, allow_blank: false
+  validates :description, presence: true, allow_blank: false
+  validates :image, presence: true, allow_blank: false
+
+  has_many :reservations
 end
