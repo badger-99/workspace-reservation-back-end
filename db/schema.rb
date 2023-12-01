@@ -22,4 +22,14 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_30_202047) do
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
+  create_table "reservations", force: :cascade do |t|
+    t.string "city", null: false
+    t.date "start_date", null: false
+    t.date "end_date", null: false
+    t.integer "user", null: false
+    t.integer "workspace", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
 end
