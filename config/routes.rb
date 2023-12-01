@@ -7,7 +7,12 @@ Rails.application.routes.draw do
       resources :sessions, only: [:create]
       resources :test, only: [:index]
       resources :workspaces, only: [:index, :show, :create, :destroy]
-      resources :reservations, only: [:index, :create]
+      # modifies the reservation index route to accept an id since there is no longer a current_user object
+      resources :reservations, only: [:index, :create] do
+        collection do
+          get ':id', action: :index
+        end
+      end
     end
   end
 
