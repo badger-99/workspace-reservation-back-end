@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_11_30_202047) do
+ActiveRecord::Schema[7.1].define(version: 2023_12_01_112431) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -18,8 +18,8 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_30_202047) do
     t.string "city", null: false
     t.date "start_date", null: false
     t.date "end_date", null: false
-    t.integer "user", null: false
-    t.integer "workspace", null: false
+    t.integer "user_id", null: false
+    t.integer "workspace_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
