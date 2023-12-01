@@ -7,8 +7,8 @@ class ReservationsController < ApplicationController
   def create
     @workspace = Workspace.find(params[:workspace_id])
     @reservation = Reservation.new(reservation_params)
-    @reservation.user = current_user
-    @reservation.workspace = @workspace
+    @reservation.user_id = current_user
+    @reservation.workspace_id = @workspace
     if @reservation.save
       render json: { reservation: @reservation }
     else
