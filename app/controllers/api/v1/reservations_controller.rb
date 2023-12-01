@@ -1,6 +1,6 @@
-class ReservationsController < ApplicationController
+class Api::V1::ReservationsController < ApplicationController
   def index
-    @reservations = Reservation.all.where(user_id: current_user.id).order(created_at: :desc)
+    @reservations = Reservation.all.where(user_id: params[:id]).order(created_at: :desc)
     render json: { reservations: @reservations }
   end
 
