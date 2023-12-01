@@ -1,15 +1,4 @@
 Rails.application.routes.draw do
-    namespace :api do
-      namespace :v1 do
-       namespace :workspace do
-        get 'workspaces' => 'workspace#index'
-        get 'details/:id' => 'workspace#show'
-
-        post 'new_workspace' => 'workspace#create'
-        delete 'delete_workspace' => 'workspace#destroy'
-      end
-      end
-  end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   namespace :api do
@@ -17,8 +6,8 @@ Rails.application.routes.draw do
       resources :registrations, only: [:create]
       resources :sessions, only: [:create]
       resources :test, only: [:index]
-      # resources :workspaces, only: [:index, :show]
-      # resources :reservations, only: [:index, :show, :create, :destroy]
+      resources :workspaces, only: [:index, :show, :create, :destroy]
+      resources :reservations, only: [:index, :create]
     end
   end
 
