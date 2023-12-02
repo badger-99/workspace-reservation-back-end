@@ -1,7 +1,7 @@
 class Api::V1::WorkspacesController < ApplicationController
   def index
     @workspaces = Workspace.all
-    render json: { workspaces: @workspaces }
+    render json: WorkspaceSerializer.new(@workspaces).serializable_hash[:data].map { |item| item[:attributes] }
   end
 
   def show
@@ -11,6 +11,11 @@ class Api::V1::WorkspacesController < ApplicationController
 
   def create
     @new_workspace = Workspace.new(workspace_params)
+    if @new_workspace.save
+      render json: { success: 'Workspace has been created' }
+    else
+      render json: { errors: @new_workspace.errors.full_messages }
+    end
   end
 
   def destroy
@@ -22,5 +27,16 @@ class Api::V1::WorkspacesController < ApplicationController
 
   def workspace_params
     params.require(:workspace).permit(:name, :description, :image)
+  end
+
+  def serialized_workspaces
+    @workspaces.map do |workspace|
+      {
+        id: workspace.id,
+        name: workspace.name,
+        description: workspace.description,
+        image_data: workspace.image
+      }
+    end
   end
 end
