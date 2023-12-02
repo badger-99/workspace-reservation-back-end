@@ -1,7 +1,9 @@
 class Api::V1::WorkspacesController < ApplicationController
   def index
     @workspaces = Workspace.all
-    render json: WorkspaceSerializer.new(@workspaces).serializable_hash[:data].map { |item| item[:attributes] }
+    render json: { workspaces: WorkspaceSerializer.new(@workspaces).serializable_hash[:data].map do |item|
+                                 item[:attributes]
+                               end }
   end
 
   def show
