@@ -1,4 +1,4 @@
 class WorkspaceSerializer
   include JSONAPI::Serializer
-  attributes :name, :description, :image, :created_at, :updated_at, :image_url
+  attributes :id, :name, :description, :image_url
 end
