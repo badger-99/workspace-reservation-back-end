@@ -24,7 +24,7 @@ class Api::V1::RegistrationsController < Api::V1::ApplicationController
   private
 
   def user_params
-    params.permit(:username)
+    params.require(:registration).permit(:username)
   end
 end
 

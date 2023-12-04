@@ -14,13 +14,13 @@ class Api::V1::SessionsController < Api::V1::ApplicationController
         token:
       }, status: :ok
     else
-      render json: { error: 'unauthorized' }, status: :unauthorized
+      render json: { message: 'User not registered.', errors: @user.errors }, status: :unauthorized
     end
   end
 
   private
 
   def user_params
-    params.permit(:username)
+    params.require(:session).permit(:username)
   end
 end
