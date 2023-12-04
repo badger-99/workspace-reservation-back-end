@@ -1,14 +1,14 @@
-class ReservationsController < ApplicationController
+class Api::V1::ReservationsController < ApplicationController
   def index
-    @reservations = Reservation.all.where(user_id: current_user.id).order(created_at: :desc)
+    @reservations = Reservation.all.where(user_id: params[:id]).order(created_at: :desc)
     render json: { reservations: @reservations }
   end
 
   def create
     @workspace = Workspace.find(params[:workspace_id])
     @reservation = Reservation.new(reservation_params)
-    @reservation.user = current_user
-    @reservation.workspace = @workspace
+    @reservation.user_id = current_user
+    @reservation.workspace_id = @workspace
     if @reservation.save
       render json: { reservation: @reservation }
     else

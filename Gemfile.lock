@@ -76,6 +76,22 @@ GEM
       mutex_m
       tzinfo (~> 2.0)
     ast (2.4.2)
+    aws-eventstream (1.3.0)
+    aws-partitions (1.862.0)
+    aws-sdk-core (3.190.0)
+      aws-eventstream (~> 1, >= 1.3.0)
+      aws-partitions (~> 1, >= 1.651.0)
+      aws-sigv4 (~> 1.8)
+      jmespath (~> 1, >= 1.6.1)
+    aws-sdk-kms (1.74.0)
+      aws-sdk-core (~> 3, >= 3.188.0)
+      aws-sigv4 (~> 1.1)
+    aws-sdk-s3 (1.141.0)
+      aws-sdk-core (~> 3, >= 3.189.0)
+      aws-sdk-kms (~> 1)
+      aws-sigv4 (~> 1.8)
+    aws-sigv4 (1.8.0)
+      aws-eventstream (~> 1, >= 1.0.2)
     base64 (0.2.0)
     bigdecimal (3.1.4)
     bootsnap (1.17.0)
@@ -99,7 +115,10 @@ GEM
     irb (1.9.1)
       rdoc
       reline (>= 0.3.8)
+    jmespath (1.6.2)
     json (2.6.3)
+    jsonapi-serializer (2.2.0)
+      activesupport (>= 4.2)
     language_server-protocol (3.17.0.3)
     loofah (2.22.0)
       crass (~> 1.0.2)
@@ -126,10 +145,13 @@ GEM
     nio4r (2.6.1)
     nokogiri (1.15.5-x64-mingw-ucrt)
       racc (~> 1.4)
+    nokogiri (1.15.5-x86_64-linux)
+      racc (~> 1.4)
     parallel (1.23.0)
     parser (3.2.2.4)
       ast (~> 2.4.1)
       racc
+    pg (1.5.4)
     pg (1.5.4-x64-mingw-ucrt)
     psych (5.1.1.1)
       stringio
@@ -214,10 +236,13 @@ GEM
 
 PLATFORMS
   x64-mingw-ucrt
+  x86_64-linux
 
 DEPENDENCIES
+  aws-sdk-s3
   bootsnap
   debug
+  jsonapi-serializer (~> 2.2)
   pg (~> 1.1)
   puma (>= 5.0)
   rack-cors
