@@ -16,9 +16,9 @@ class Api::V1::WorkspacesController < Api::V1::ApplicationController
   def create
     @new_workspace = Workspace.new(workspace_params)
     if @new_workspace.save
-      render json: { success: 'Workspace has been created' }
+      render json: { success: 'Workspace has been created.' }
     else
-      render json: { errors: @new_workspace.errors.full_messages }
+      render json: { error: 'workspace has not been created.' }
     end
   end
 
@@ -31,16 +31,5 @@ class Api::V1::WorkspacesController < Api::V1::ApplicationController
 
   def workspace_params
     params.require(:workspace).permit(:name, :description, :image)
-  end
-
-  def serialized_workspaces
-    @workspaces.map do |workspace|
-      {
-        id: workspace.id,
-        name: workspace.name,
-        description: workspace.description,
-        image_data: workspace.image
-      }
-    end
   end
 end
