@@ -1,25 +1,30 @@
 # app/controllers/api/v1/registrations_controller.rb
 
-class Api::V1::RegistrationsController < ApplicationController
+class Api::V1::RegistrationsController < Api::V1::ApplicationController
+  skip_before_action :authenticate_request
+
   # POST /api/v1/registrations
   def create
-    request_data = JSON.parse(request.body.read)
-    @user = User.new(username: request_data['username'])
-
+    @user = User.new(user_params)
     if @user.save
       render json: {
-               status: 201,
                message: 'User registered successfully.',
                user: {
                  id: @user.id,
-                 username: @user.username,
-                 authentication_token: @user.authentication_token
+                 username: @user.username
                }
              },
              status: :created
     else
       render json: { status: 400, message: 'User not registered.', errors: @user.errors }, status: :bad_request
+
     end
+  end
+
+  private
+
+  def user_params
+    params.require(:registration).permit(:username)
   end
 end
 

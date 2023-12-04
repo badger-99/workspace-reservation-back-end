@@ -1,4 +1,6 @@
-class Api::V1::WorkspacesController < ApplicationController
+class Api::V1::WorkspacesController < Api::V1::ApplicationController
+  skip_before_action :authenticate_request, only: %i[index show]
+
   def index
     @workspaces = Workspace.all
     render json: { workspaces: WorkspaceSerializer.new(@workspaces).serializable_hash[:data].map do |item|
