@@ -10,7 +10,7 @@ Rails.application.routes.draw do
       # modifies the reservation index route to accept an id since there is no longer a current_user object
       resources :reservations, only: [:index, :create] do
         collection do
-          get ':id', action: :index
+          get ':id', action: :show
         end
       end
     end

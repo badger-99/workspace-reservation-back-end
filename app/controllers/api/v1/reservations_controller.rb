@@ -4,13 +4,22 @@ class Api::V1::ReservationsController < Api::V1::ApplicationController
     render json: { reservations: @reservations }
   end
 
-  def create
-    @workspace = Workspace.find(params[:workspace_id])
-    @reservation = Reservation.new(reservation_params)
-    @reservation.user_id = current_user
-    @reservation.workspace_id = @workspace
-    if @reservation.save
+  def show
+    @reservation = Reservation.find(params[:id])
+    if @reservation.user_id == @current_user.id
       render json: { reservation: @reservation }
+    else
+      render json: { errors: @reservation.errors.full_messages }
+    end
+  end
+
+  def create
+    @workspace = Workspace.find(params[:workspace])
+    @reservation = Reservation.new(reservation_params)
+    @reservation.user_id = @current_user.id
+    @reservation.workspace = @workspace
+    if @reservation.save
+      render json: { reservation: @reservation, success: 'Reservation has been created.' }
     else
       render json: { errors: @reservation.errors.full_messages }
     end
@@ -19,6 +28,6 @@ class Api::V1::ReservationsController < Api::V1::ApplicationController
   private
 
   def reservation_params
-    params.require(:reservation).permit(:start_date, :end_date, :city, :workspace_id)
+    params.require(:reservation).permit(:start_date, :end_date, :city, :workspace)
   end
 end

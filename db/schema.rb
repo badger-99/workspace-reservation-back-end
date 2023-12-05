@@ -60,6 +60,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_02_155822) do
     t.string "username", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "authentication_token"
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
