@@ -10,7 +10,7 @@ class Api::V1::WorkspacesController < Api::V1::ApplicationController
 
   def show
     @workspace = Workspace.find(params[:id])
-    render json: { workspaces: @workspace }
+    render json: { workspace: WorkspaceSerializer.new(@workspace).serializable_hash[:data][:attributes] }
   end
 
   def create
@@ -23,8 +23,12 @@ class Api::V1::WorkspacesController < Api::V1::ApplicationController
   end
 
   def destroy
-    @deleted_workspace = Workspace.find(params[:workspace_id])
-    @deleted_workspace.destroy
+    @deleted_workspace = Workspace.find(params[:id])
+    if @deleted_workspace.destroy
+      render json: { success: 'workspace deleted' }
+    else
+      render json: { error: 'something went wrong' }
+    end
   end
 
   private
