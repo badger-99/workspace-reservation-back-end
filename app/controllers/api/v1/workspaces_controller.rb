@@ -10,7 +10,7 @@ class Api::V1::WorkspacesController < Api::V1::ApplicationController
 
   def show
     @workspace = Workspace.find(params[:id])
-    render json: { workspaces: @workspace }
+    render json: { workspace: WorkspaceSerializer.new(@workspace).serializable_hash[:data][:attributes] }
   end
 
   def create
