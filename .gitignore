@@ -34,3 +34,4 @@
 
 # ignore database.yml
 /config/database.yml
+test_seeds.rb
