@@ -25,9 +25,9 @@ class Api::V1::WorkspacesController < Api::V1::ApplicationController
   def destroy
     @deleted_workspace = Workspace.find(params[:id])
     if @deleted_workspace.destroy
-      render json: { success: 'workspace deleted' }
+      render json: { success: 'workspace deleted' }, status: :created
     else
-      render json: { error: 'something went wrong' }
+      render json: { error: 'something went wrong' }, status: :bad_request
     end
   end
 

@@ -19,9 +19,9 @@ class Api::V1::ReservationsController < Api::V1::ApplicationController
     @reservation.user_id = @current_user.id
     @reservation.workspace = @workspace
     if @reservation.save
-      render json: { reservation: @reservation, success: 'Reservation has been created.' }
+      render json: { reservation: @reservation, success: 'Reservation has been created.' }, status: :created
     else
-      render json: { errors: @reservation.errors.full_messages }
+      render json: { errors: @reservation.errors.full_messages }, status: :bad_request
     end
   end
 
