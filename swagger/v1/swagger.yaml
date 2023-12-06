@@ -8,7 +8,7 @@ paths:
     post:
       summary: Registers a new user
       tags:
-      - Registrations
+      - Users
       parameters: []
       responses:
         '201':
@@ -41,6 +41,13 @@ paths:
                     type: integer
                   message:
                     type: string
+                  errors:
+                    type: object
+                    properties:
+                      username:
+                        type: array
+                        items:
+                          type: string
       requestBody:
         content:
           application/json:
@@ -51,6 +58,54 @@ paths:
                   type: string
               required:
               - username
+        description: Username needed to create a new user.
+  "/api/v1/sessions":
+    post:
+      summary: Logs a user in
+      tags:
+      - Users
+      parameters: []
+      responses:
+        '200':
+          description: user logged in successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  username:
+                    type: string
+                  token:
+                    type: string
+        '401':
+          description: user not registered
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    type: object
+                    properties:
+                      username:
+                        type: array
+                        items:
+                          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+              required:
+              - username
+        description: A username of an existing user needed to sign in.
 servers:
 - url: http://localhost:3000
   variables:

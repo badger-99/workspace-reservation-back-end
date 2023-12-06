@@ -1,14 +1,14 @@
 require 'swagger_helper'
 
-RSpec.describe 'Registrations API', type: :request do
+RSpec.describe 'Registrations API-Endpoint', type: :request do
   describe 'POST /api/v1/registrations' do
     path '/api/v1/registrations' do
       post 'Registers a new user' do
-        tags 'Registrations'
+        tags 'Users'
         consumes 'application/json'
         produces 'application/json'
 
-        parameter name: :registration, in: :body, schema: {
+        parameter name: :registration, in: :body, description: 'Username needed to create a new user.', schema: {
           type: :object,
           properties: {
             username: { type: :string }
@@ -39,7 +39,13 @@ RSpec.describe 'Registrations API', type: :request do
           schema type: :object,
                  properties: {
                    status: { type: :integer },
-                   message: { type: :string }
+                   message: { type: :string },
+                   errors: {
+                     type: :object,
+                     properties: {
+                       username: { type: :array, items: { type: :string } }
+                     }
+                   }
                  }
 
           let(:registration) { { username: '' } }
