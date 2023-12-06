@@ -52,3 +52,5 @@ gem 'rubocop', '>= 1.0', '< 2.0'
 gem 'aws-sdk-s3', require: false
 
 gem 'jsonapi-serializer', '~> 2.2'
+
+gem 'rswag'
