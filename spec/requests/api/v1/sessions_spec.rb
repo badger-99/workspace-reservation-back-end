@@ -1,6 +1,6 @@
 require 'swagger_helper'
 
-RSpec.describe 'Sessions API-Endpoint', type: :request do
+RSpec.describe 'api/v1/sessions', type: :request do
   describe 'POST /api/v1/sessions' do
     path '/api/v1/sessions' do
       post 'Logs a user in' do

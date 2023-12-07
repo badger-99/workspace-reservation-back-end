@@ -1,6 +1,6 @@
 require 'swagger_helper'
 
-RSpec.describe 'Registrations API-Endpoint', type: :request do
+RSpec.describe 'api/v1/registrations', type: :request do
   describe 'POST /api/v1/registrations' do
     path '/api/v1/registrations' do
       post 'Registers a new user' do
