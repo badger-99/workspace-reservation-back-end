@@ -6,10 +6,10 @@ info:
 paths:
   "/api/v1/registrations":
     post:
+      parameters: []
       summary: Registers a new user
       tags:
       - Users
-      parameters: []
       responses:
         '201':
           description: user registered successfully
@@ -59,6 +59,131 @@ paths:
               required:
               - username
         description: Username needed to create a new user.
+  "/api/v1/reservations":
+    get:
+      summary: Retrieves all reservations for the current user
+      tags:
+      - Reservations
+      responses:
+        '200':
+          description: successful
+    post:
+      summary: Creates a new reservation
+      tags:
+      - Reservations
+      parameters: []
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reservation:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      start_date:
+                        type: date
+                        format: date
+                      end_date:
+                        type: date
+                        format: date
+                      city:
+                        type: string
+                      workspace_id:
+                        type: integer
+                      user_id:
+                        type: integer
+                    required:
+                    - id
+                    - start_date
+                    - end_date
+                    - city
+                    - workspace_id
+                    - user_id
+                  success:
+                    type: string
+        '400':
+          description: reservation not created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                start_date:
+                  type: date
+                  format: date
+                end_date:
+                  type: date
+                  format: date
+                city:
+                  type: string
+                workspace_id:
+                  type: integer
+                user_id:
+                  type: integer
+              required:
+              - start_date
+              - end_date
+              - city
+              - workspace
+  "/api/v1/reservations/{id}":
+    parameters:
+    - name: id
+      in: path
+      description: Reservation ID
+      required: true
+      schema:
+        type: integer
+    get:
+      summary: Retrieves a specific reservation
+      tags:
+      - Reservations
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reservation:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      start_date:
+                        type: string
+                        format: date
+                      end_date:
+                        type: string
+                        format: date
+                      city:
+                        type: string
+                      workspace_id:
+                        type: integer
+                      user_id:
+                        type: integer
+                    required:
+                    - id
+                    - start_date
+                    - end_date
+                    - city
+                    - workspace_id
+                    - user_id
   "/api/v1/sessions":
     post:
       summary: Logs a user in
@@ -106,6 +231,135 @@ paths:
               required:
               - username
         description: A username of an existing user needed to sign in.
+  "/api/v1/workspaces":
+    get:
+      summary: Retrieves all workspaces
+      tags:
+      - Workspaces
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  workspaces:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        name:
+                          type: string
+                        description:
+                          type: string
+                        image_url:
+                          type: string
+                      required:
+                      - id
+                      - name
+                      - description
+    post:
+      summary: Creates a new workspace
+      tags:
+      - Workspaces
+      parameters: []
+      responses:
+        '201':
+          description: workspace created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: string
+        '400':
+          description: workspace not created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
+                image:
+                  type: string
+                  format: binary
+              required:
+              - name
+              - description
+              - image
+  "/api/v1/workspaces/{id}":
+    parameters:
+    - name: id
+      in: path
+      description: Workspace ID
+      required: true
+      schema:
+        type: string
+    get:
+      summary: Retrieves a specific workspace
+      tags:
+      - Workspaces
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  workspace:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      name:
+                        type: string
+                      description:
+                        type: string
+                      image_url:
+                        type: string
+                    required:
+                    - id
+                    - name
+                    - description
+    delete:
+      summary: Deletes a workspace
+      tags:
+      - Workspaces
+      responses:
+        '201':
+          description: workspace deleted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: string
+        '400':
+          description: something went wrong
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
 servers:
 - url: http://localhost:3000
   variables:
