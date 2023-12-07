@@ -40,6 +40,8 @@ group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem 'debug', platforms: %i[mri windows]
   gem 'rspec-rails'
+  
+  gem 'rswag-specs'
 end
 
 group :development do
@@ -53,4 +55,5 @@ gem 'aws-sdk-s3', require: false
 
 gem 'jsonapi-serializer', '~> 2.2'
 
-gem 'rswag'
+gem 'rswag-api'
+gem 'rswag-ui'
