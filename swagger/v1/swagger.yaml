@@ -309,21 +309,22 @@ paths:
                     type: string
       requestBody:
         content:
-          application/json:
+          multipart/form-data:
+          # application/json:
             schema:
               type: object
               properties:
-                name:
+                workspace[name]:
                   type: string
-                description:
+                workspace[description]:
                   type: string
-                image:
+                workspace[image]:
                   type: string
                   format: binary
               required:
-              - name
-              - description
-              - image
+              - workspace[name]
+              - workspace[description]
+              - workspace[image]
   "/api/v1/workspaces/{id}":
     parameters:
     - name: id
