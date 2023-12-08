@@ -84,6 +84,13 @@ paths:
         '200':
           description: successful
     post:
+      parameters:
+      - name: workspace
+        in: query
+        description: Workspace ID
+        required: true
+        schema:
+          type: integer
       summary: Creates a new reservation
       security:
         - bearerAuth: []
@@ -150,14 +157,10 @@ paths:
                   format: date
                 reservation[city]:
                   type: string
-                reservation[workspace]:
-                  description: Create a workspace to get an ID, or use the ID from an existing one.
-                  type: integer
               required:
               - reservation[start_date]
               - reservation[end_date]
               - reservation[city]
-              - reservation[workspace]
             example:
               $ref: '#components/examples/reservation'
   "/api/v1/reservations/{id}":
