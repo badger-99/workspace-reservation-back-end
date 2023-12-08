@@ -1,6 +1,5 @@
 require 'swagger_helper'
 require 'base64'
-# require 'app/controllers/concerns/json_web_token'
 
 RSpec.describe 'api/v1/workspaces', type: :request do
   path '/api/v1/workspaces' do # rubocop:disable Metrics/BlockLength
@@ -19,7 +18,7 @@ RSpec.describe 'api/v1/workspaces', type: :request do
                        id: { type: :integer },
                        name: { type: :string },
                        description: { type: :string },
-                       image_url: { type: :string } # Adjust based on your requirements
+                       image_url: { type: :string }
                      },
                      required: %w[id name description]
                    }
@@ -31,19 +30,20 @@ RSpec.describe 'api/v1/workspaces', type: :request do
     end
 
     post 'Creates a new workspace' do
+      security 'bearerAuth'
       tags 'Workspaces'
-      consumes 'application/json'
+      consumes 'multipart/form-data'
       produces 'application/json'
 
-      parameter name: :workspace, in: :body, schema: {
-        type: :object,
-        properties: {
-          name: { type: :string },
-          description: { type: :string },
-          image: { type: :string, format: :binary }
-        },
-        required: %w[name description image]
-      }
+      # parameter name: :workspace, in: :body, schema: {
+      #   type: :object,
+      #   properties: {
+      #     workspace[name] => { type: :string },
+      #     workspace[description] => { type: :string },
+      #     workspace[image] => { type: :string, format: :binary }
+      #   },
+      #   required: %w[name description image]
+      # }
 
       response '201', 'workspace created successfully' do
         schema type: :object,
@@ -51,16 +51,20 @@ RSpec.describe 'api/v1/workspaces', type: :request do
                  success: { type: :string }
                }
 
-        let(:name) { 'test_user' }
-        let(:description) { 'Some descriptors here.' }
         let(:image) do
           {
-            data: Base64.strict_encode64(File.read('app/assets/images/pizza meme.jpg')),
+            data: File.read('app/assets/images/pizza meme.jpg', mode: 'rb'),
             filename: 'pizza meme.jpg',
             type: 'image/jpg'
           }
         end
-        let(:workspace) { { name:, description:, image: } }
+        let(:workspace) do
+          {
+            workspace[name] => 'test_user',
+            workspace[description] => 'Some descriptors here.',
+            workspace[image] => :image
+          }
+        end
         run_test!
       end
 
@@ -95,7 +99,7 @@ RSpec.describe 'api/v1/workspaces', type: :request do
                      description: { type: :string },
                      image_url: { type: :string } # Adjust based on your requirements
                    },
-                   required: ['id', 'name', 'description']
+                   required: %w[id name description]
                  }
                }
 
@@ -104,6 +108,7 @@ RSpec.describe 'api/v1/workspaces', type: :request do
     end
 
     delete 'Deletes a workspace' do
+      security 'bearerAuth'
       tags 'Workspaces'
       produces 'application/json'
 

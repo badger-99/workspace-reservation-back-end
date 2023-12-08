@@ -1,24 +1,20 @@
 require 'swagger_helper'
+require 'base64'
 
 RSpec.describe 'api/v1/reservations', type: :request do
   path '/api/v1/reservations' do # rubocop:disable Metrics/BlockLength
-    get('Retrieves all reservations for the current user') do
+    get 'Retrieves all reservations for the current user' do
+      security 'bearerAuth'
       tags 'Reservations'
       produces 'application/json'
 
-      response(200, 'successful') do
-        # after do |example|
-        #   example.metadata[:response][:content] = {
-        #     'application/json' => {
-        #       example: JSON.parse(response.body, symbolize_names: true)
-        #     }
-        #   }
-        # end
+      response '200', 'successful' do
         run_test!
       end
     end
 
-    post('Creates a new reservation') do # rubocop:disable Metrics/BlockLength
+    post 'Creates a new reservation' do # rubocop:disable Metrics/BlockLength
+      security 'bearerAuth'
       tags 'Reservations'
       consumes 'application/json'
       produces 'application/json'
@@ -35,7 +31,7 @@ RSpec.describe 'api/v1/reservations', type: :request do
         required: %w[start_date end_date city workspace]
       }
 
-      response(200, 'successful') do
+      response '200', 'successful' do
         schema type: :object,
                properties: {
                  reservation: {
@@ -73,13 +69,6 @@ RSpec.describe 'api/v1/reservations', type: :request do
             user_id: user.id
           }
         end
-        # after do |example|
-        #   example.metadata[:response][:content] = {
-        #     'application/json' => {
-        #       example: JSON.parse(response.body, symbolize_names: true)
-        #     }
-        #   }
-        # end
         run_test!
       end
       response '400', 'reservation not created' do
@@ -98,11 +87,12 @@ RSpec.describe 'api/v1/reservations', type: :request do
   path '/api/v1/reservations/{id}' do
     parameter name: :id, in: :path, type: :integer, description: 'Reservation ID'
 
-    get('Retrieves a specific reservation') do
+    get 'Retrieves a specific reservation' do
+      security 'bearerAuth'
       tags 'Reservations'
       produces 'application/json'
 
-      response(200, 'successful') do
+      response '200', 'successful' do
         schema type: :object,
                properties: {
                  reservation: {
@@ -119,13 +109,6 @@ RSpec.describe 'api/v1/reservations', type: :request do
                  }
                }
 
-        # after do |example|
-        #   example.metadata[:response][:content] = {
-        #     'application/json' => {
-        #       example: JSON.parse(response.body, symbolize_names: true)
-        #     }
-        #   }
-        # end
         run_test!
       end
     end

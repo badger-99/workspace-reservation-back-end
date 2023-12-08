@@ -5,16 +5,16 @@ RSpec.describe 'api/v1/registrations', type: :request do
     path '/api/v1/registrations' do
       post 'Registers a new user' do
         tags 'Users'
-        consumes 'application/json'
+        consumes 'application/x-www-form-urlencoded'
         produces 'application/json'
 
-        parameter name: :registration, in: :body, description: 'Username needed to create a new user.', schema: {
-          type: :object,
-          properties: {
-            username: { type: :string }
-          },
-          required: ['username']
-        }
+        # parameter name: :registration, in: :body, description: 'Username needed to create a new user.', schema: {
+        #   type: :object,
+        #   properties: {
+        #     registration[username] => { type: :string }
+        #   },
+        #   required: ['registration[username]']
+        # }
 
         response '201', 'user registered successfully' do
           schema type: :object,
@@ -30,7 +30,7 @@ RSpec.describe 'api/v1/registrations', type: :request do
                    }
                  }
 
-          let(:registration) { { username: 'test_user' } }
+          let(:registration) { { registration[username] => 'test_user' } }
 
           run_test!
         end
@@ -48,7 +48,7 @@ RSpec.describe 'api/v1/registrations', type: :request do
                    }
                  }
 
-          let(:registration) { { username: '' } }
+          let(:registration) { { registration[username] => '' } }
 
           run_test!
         end

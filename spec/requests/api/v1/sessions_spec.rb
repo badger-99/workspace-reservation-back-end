@@ -5,16 +5,16 @@ RSpec.describe 'api/v1/sessions', type: :request do
     path '/api/v1/sessions' do
       post 'Logs a user in' do
         tags 'Users'
-        consumes 'application/json'
+        consumes 'application/x-www-form-urlencoded'
         produces 'application/json'
 
-        parameter name: :session, in: :body, description: 'A username of an existing user needed to sign in.', schema: {
-          type: :object,
-          properties: {
-            username: { type: :string }
-          },
-          required: ['username']
-        }
+        # parameter name: :session, in: :body, description: 'A username of an existing user needed to sign in.', schema: {
+        #   type: :object,
+        #   properties: {
+        #     session[username] => { type: :string }
+        #   },
+        #   required: ['session[username]']
+        # }
 
         response '200', 'user logged in successfully' do
           schema type: :object,
@@ -26,7 +26,7 @@ RSpec.describe 'api/v1/sessions', type: :request do
 
           let(:user) { create(:user, username: 'test_user') }
           let(:username) { 'test_user' }
-          let(:session) { { username: } }
+          let(:session) { { session[username] => 'test_user' } }
 
           run_test!
         end

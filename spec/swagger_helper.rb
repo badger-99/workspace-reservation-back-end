@@ -18,33 +18,31 @@ RSpec.configure do |config|
     'v1/swagger.yaml' => {
       openapi: '3.0.1',
       info: {
-        title: 'API V1',
+        title: 'Workspace Rentals API',
+        description:
+        'To use the authorized endpoints:
+            1. Register a new user
+            2. Log in with the user you registered
+            3. Copy the token string in the response body
+            4. Click "Authorize [padlock-icon]", paste it in the "value" field, then click "Authorize".',
         version: 'v1'
-      },
-      paths: {
-        # '/api/v1/registrations' => {
-        #   post: {
-        #     consumes: ['multipart/form-data'],
-        #     parameters: [
-        #       {
-        #         in: :formData,
-        #         name: :username,
-        #         type: :string
-        #       }
-        #     ]
-        #   }
-        # }
       },
       servers: [
         {
           url: 'http://localhost:3000',
-          variables: {
-            defaultHost: {
-              default: 'http://localhost:3000'
-            }
+          description: 'Sandbox server for testing'
+        }
+      ],
+      components: {
+        securitySchemes: {
+          bearerAuth: {
+            type: 'http',
+            scheme: 'bearer',
+            bearerFormat: 'JWT'
           }
         }
-      ]
+      },
+      paths: {}
     }
   }
 
