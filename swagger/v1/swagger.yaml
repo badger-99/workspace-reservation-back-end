@@ -150,14 +150,14 @@ paths:
                   format: date
                 reservation[city]:
                   type: string
-                reservation[workspace_id]:
+                reservation[workspace]:
                   description: Create a workspace to get an ID, or use the ID from an existing one.
                   type: integer
               required:
               - reservation[start_date]
               - reservation[end_date]
               - reservation[city]
-              - reservation[workspace_id]
+              - reservation[workspace]
             example:
               $ref: '#components/examples/reservation'
   "/api/v1/reservations/{id}":
