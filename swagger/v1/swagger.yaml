@@ -6,7 +6,8 @@ info:
     To use the authorized endpoints:
       1. Register a new user
       2. Log in with the user you registered
-      3. Copy the token in the response body and paste it in the "Authorize" field.
+      3. Copy the token string in the response body
+      4. Click "Authorize [padlock-icon]", paste it in the "value" field, then click "Authorize".
   version: v1
 servers:
 - url: http://localhost:3000
@@ -23,7 +24,6 @@ paths:
       summary: Registers a new user
       tags:
       - Users
-      parameters: []
       responses:
         '201':
           description: user registered successfully
@@ -89,7 +89,6 @@ paths:
         - bearerAuth: []
       tags:
       - Reservations
-      parameters: []
       responses:
         '200':
           description: successful
@@ -209,7 +208,6 @@ paths:
       summary: Logs a user in
       tags:
       - Users
-      parameters: []
       responses:
         '200':
           description: user logged in successfully
@@ -287,7 +285,6 @@ paths:
         - bearerAuth: []
       tags:
       - Workspaces
-      parameters: []
       responses:
         '201':
           description: workspace created successfully
@@ -310,7 +307,6 @@ paths:
       requestBody:
         content:
           multipart/form-data:
-          # application/json:
             schema:
               type: object
               properties:
