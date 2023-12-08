@@ -64,14 +64,14 @@ paths:
                           type: string
       requestBody:
         content:
-          application/json:
+          application/x-www-form-urlencoded:
             schema:
               type: object
               properties:
-                username:
+                registration[username]:
                   type: string
               required:
-              - username
+              - registration[username]
         description: Username needed to create a new user.
   "/api/v1/reservations":
     get:
@@ -242,14 +242,14 @@ paths:
                           type: string
       requestBody:
         content:
-          application/json:
+          application/x-www-form-urlencoded:
             schema:
               type: object
               properties:
-                username:
+                session[username]:
                   type: string
               required:
-              - username
+              - session[username]
         description: A username of an existing user needed to sign in.
   "/api/v1/workspaces":
     get:
