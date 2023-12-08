@@ -21,7 +21,20 @@ RSpec.configure do |config|
         title: 'API V1',
         version: 'v1'
       },
-      paths: {},
+      paths: {
+        # '/api/v1/registrations' => {
+        #   post: {
+        #     consumes: ['multipart/form-data'],
+        #     parameters: [
+        #       {
+        #         in: :formData,
+        #         name: :username,
+        #         type: :string
+        #       }
+        #     ]
+        #   }
+        # }
+      },
       servers: [
         {
           url: 'http://localhost:3000',
