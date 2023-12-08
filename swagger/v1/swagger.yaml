@@ -103,10 +103,10 @@ paths:
                       id:
                         type: integer
                       start_date:
-                        type: date
+                        type: string
                         format: date
                       end_date:
-                        type: date
+                        type: string
                         format: date
                       city:
                         type: string
@@ -136,27 +136,30 @@ paths:
                       type: string
       requestBody:
         content:
-          application/json:
+          application/x-www-form-urlencoded:
             schema:
               type: object
               properties:
-                start_date:
-                  type: date
-                  format: date
-                end_date:
-                  type: date
-                  format: date
-                city:
+                reservation[start_date]:
+                  description: YYYY-MM-DD
                   type: string
-                workspace_id:
-                  type: integer
-                user_id:
+                  format: date
+                reservation[end_date]:
+                  description: YYYY-MM-DD -> has to be same as the start date, or later.
+                  type: string
+                  format: date
+                reservation[city]:
+                  type: string
+                reservation[workspace_id]:
+                  description: Create a workspace to get an ID, or use the ID from an existing one.
                   type: integer
               required:
-              - start_date
-              - end_date
-              - city
-              - workspace
+              - reservation[start_date]
+              - reservation[end_date]
+              - reservation[city]
+              - reservation[workspace_id]
+            example:
+              $ref: '#components/examples/reservation'
   "/api/v1/reservations/{id}":
     parameters:
     - name: id
