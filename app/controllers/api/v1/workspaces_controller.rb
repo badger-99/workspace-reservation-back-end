@@ -5,12 +5,16 @@ class Api::V1::WorkspacesController < Api::V1::ApplicationController
     @workspaces = Workspace.all
     render json: { workspaces: WorkspaceSerializer.new(@workspaces).serializable_hash[:data].map do |item|
                                  item[:attributes]
-                               end }
+                               end }, status: :ok
   end
 
   def show
     @workspace = Workspace.find(params[:id])
-    render json: { workspace: WorkspaceSerializer.new(@workspace).serializable_hash[:data][:attributes] }
+    if @workspace
+      render json: { workspace: WorkspaceSerializer.new(@workspace).serializable_hash[:data][:attributes] }, status: :ok
+    else
+      render json: { error: 'Workspace does not exist' }, status: :not_found
+    end
   end
 
   def create
@@ -21,18 +25,18 @@ class Api::V1::WorkspacesController < Api::V1::ApplicationController
                        id: @new_workspace.id,
                        name: @new_workspace.name,
                        description: @new_workspace.description
-                     } }
+                     } }, status: :created
     else
-      render json: { error: 'workspace has not been created.' }
+      render json: { error: 'workspace has not been created.' }, status: :bad_request
     end
   end
 
   def destroy
     @deleted_workspace = Workspace.find(params[:id])
     if @deleted_workspace.destroy
-      render json: { success: 'workspace deleted' }, status: :created
+      render json: { success: 'workspace deleted' }, status: :ok
     else
-      render json: { error: 'something went wrong' }, status: :bad_request
+      render json: { error: 'something went wrong' }, status: :not_found
     end
   end
 

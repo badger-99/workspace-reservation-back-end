@@ -371,8 +371,8 @@ paths:
                 properties:
                   success:
                     type: string
-        '400':
-          description: something went wrong
+        '404':
+          description: workspace not found
           content:
             application/json:
               schema:
