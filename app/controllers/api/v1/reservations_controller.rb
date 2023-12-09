@@ -7,7 +7,7 @@ class Api::V1::ReservationsController < Api::V1::ApplicationController
   def show
     @reservation = Reservation.find(params[:id])
     if @reservation.user_id == @current_user.id
-      render json: { reservation: @reservation }
+      render json: { reservation: @reservation }, status: :ok
     else
       render json: { errors: @reservation.errors.full_messages }
     end
