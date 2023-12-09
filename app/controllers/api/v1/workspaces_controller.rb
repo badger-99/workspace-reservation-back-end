@@ -16,7 +16,12 @@ class Api::V1::WorkspacesController < Api::V1::ApplicationController
   def create
     @new_workspace = Workspace.new(workspace_params)
     if @new_workspace.save
-      render json: { success: 'Workspace has been created.' }
+      render json: { success: 'Workspace has been created.',
+                     workspace: {
+                       id: @new_workspace.id,
+                       name: @new_workspace.name,
+                       description: @new_workspace.description
+                     } }
     else
       render json: { error: 'workspace has not been created.' }
     end
