@@ -237,13 +237,6 @@ paths:
                 properties:
                   message:
                     type: string
-                  errors:
-                    type: object
-                    properties:
-                      username:
-                        type: array
-                        items:
-                          type: string
       requestBody:
         content:
           application/x-www-form-urlencoded:
