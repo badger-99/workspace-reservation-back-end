@@ -46,6 +46,14 @@ RSpec.describe Workspace, type: :model do
       expect(workspace.macro).to eq(:has_many)
     end
 
+    it 'destroys the associated reservation when destroyed' do
+      user = User.create(username: 'bot')
+      workspace = Workspace.create(name: 'name', description: 'testing the model', image:)
+      Reservation.create(city: 'Reykjavik', start_date: Date.today, end_date: Date.today,
+                         user_id: user.id, workspace_id: workspace.id)
+      expect { workspace.destroy }.to change { Reservation.count }.by(-1)
+    end
+
     it 'has one attached image' do
       workspace = Workspace.create(name: 'name', description: 'testing the model', image:)
       expect(workspace).to respond_to(:image)
