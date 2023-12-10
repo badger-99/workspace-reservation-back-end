@@ -91,5 +91,17 @@ RSpec.describe Reservation, type: :model do
         expect(reservation).not_to be_valid
       end
     end
+
+    describe 'validates uniqueness' do
+      it 'A workspace cannot be reserved twice in the same time and city' do
+        Reservation.create(start_date: Date.today, end_date: Date.new(2023, 12, 23),
+                           city: 'Dallas', workspace_id: workspace.id, user_id: user.id)
+
+        reservation = Reservation.new(start_date: Date.today, end_date: Date.new(2023, 12, 23),
+                                      city: 'Dallas', workspace_id: workspace.id, user_id: user.id)
+
+        expect(reservation).not_to be_valid
+      end
+    end
   end
 end
