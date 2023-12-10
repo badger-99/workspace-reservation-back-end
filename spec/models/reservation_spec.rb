@@ -1,0 +1,95 @@
+require 'rails_helper'
+
+RSpec.describe Reservation, type: :model do
+  let(:user) { User.create(username: 'robot') }
+  let(:image) { fixture_file_upload('app/assets/images/pizza meme.jpg', 'image/jpg') }
+  let(:workspace) { Workspace.create(name: 'name', description: 'testing the model', image:) }
+  let(:reservation) {
+    Reservation.create(city: 'Reykjavik', start_date: Date.today, end_date: Date.today,
+                       user_id: user.id, workspace_id: workspace.id)
+  }
+
+  describe 'associations' do
+    it 'belongs to a user' do
+      reservation = Reservation.reflect_on_association(:user)
+      expect(reservation.macro).to eq(:belongs_to)
+    end
+
+    it 'belongs to a user' do
+      reservation = Reservation.reflect_on_association(:workspace)
+      expect(reservation.macro).to eq(:belongs_to)
+    end
+  end
+
+  describe 'validations' do
+    describe 'validates the start date' do
+      it 'should be present' do
+        reservation = Reservation.new(city: 'Reykjavik', start_date: nil, end_date: Date.today,
+                                      user_id: user.id, workspace_id: workspace.id)
+        expect(reservation).not_to be_valid
+      end
+
+      it 'cannot be blank' do
+        reservation = Reservation.new(city: 'Copenhagen', start_date: '', end_date: Date.today,
+                                      user_id: user.id, workspace_id: workspace.id)
+        expect(reservation).not_to be_valid
+      end
+    end
+
+    describe 'validates the end date' do
+      it 'should be present' do
+        reservation = Reservation.new(city: 'Oslo', start_date: Date.today, end_date: nil,
+                                      user_id: user.id, workspace_id: workspace.id)
+        expect(reservation).not_to be_valid
+      end
+
+      it 'cannot be blank' do
+        reservation = Reservation.new(city: 'Vienna', start_date: Date.today, end_date: '',
+                                      user_id: user.id, workspace_id: workspace.id)
+        expect(reservation).not_to be_valid
+      end
+    end
+
+    describe 'validates the city' do
+      it 'should be present' do
+        reservation = Reservation.new(city: nil, start_date: Date.today, end_date: Date.today,
+                                      user_id: user.id, workspace_id: workspace.id)
+        expect(reservation).not_to be_valid
+      end
+
+      it 'cannot be blank' do
+        reservation = Reservation.new(city: '', start_date: Date.today, end_date: Date.today,
+                                      user_id: user.id, workspace_id: workspace.id)
+        expect(reservation).not_to be_valid
+      end
+    end
+
+    describe 'validates the workspace' do
+      it 'should be present' do
+        reservation = Reservation.new(city: 'Stockholm', start_date: Date.today, end_date: Date.today,
+                                      user_id: user.id, workspace_id: nil)
+        expect(reservation).not_to be_valid
+      end
+
+      it 'cannot be blank' do
+        reservation = Reservation.new(city: 'Tokyo', start_date: Date.today, end_date: Date.today,
+                                      user_id: user.id, workspace_id: '')
+        expect(reservation).not_to be_valid
+      end
+    end
+
+    describe 'validates the user' do
+      it 'should be present' do
+        reservation = Reservation.new(city: 'Nicosia', start_date: Date.today, end_date: Date.today,
+                                      user_id: nil, workspace_id: workspace.id)
+        expect(reservation).not_to be_valid
+      end
+
+      it 'cannot be blank' do
+        reservation = Reservation.new(city: 'Miami', start_date: Date.today, end_date: Date.today,
+                                      user_id: '', workspace_id: workspace.id)
+        expect(reservation).not_to be_valid
+      end
+    end
+  end
+end
