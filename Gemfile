@@ -39,6 +39,7 @@ gem 'rack-cors'
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem 'debug', platforms: %i[mri windows]
+  gem 'rspec-rails'
 end
 
 group :development do
@@ -51,3 +52,6 @@ gem 'rubocop', '>= 1.0', '< 2.0'
 gem 'aws-sdk-s3', require: false
 
 gem 'jsonapi-serializer', '~> 2.2'
+
+gem 'rswag-api'
+gem 'rswag-ui'
