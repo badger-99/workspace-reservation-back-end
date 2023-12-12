@@ -47,6 +47,11 @@ group :development do
   # gem "spring"
 end
 
+group :test do
+  # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
+  gem 'database_cleaner'
+end
+
 gem 'rubocop', '>= 1.0', '< 2.0'
 
 # For connecting to Amazon S3 bucket for storing uploaded images
