@@ -31,7 +31,8 @@ The **Workspace** app is a fullstack project that allows coworking space owners 
 This repository contains the backend part of the project. The frontend part can be found [here](https://github.com/Zilola-Nazarova/workspace-reservation-front-end)
 
 ### Demo
-[Link coming soon](#)
+[Base URL](https://workspace-reservation.onrender.com)
+[API Documentation](https://workspace-reservation.onrender.com/api-docs/index.html)
 
 ## 🛠 Built With <a name="built-with"></a>
 
