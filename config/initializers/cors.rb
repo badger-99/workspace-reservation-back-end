@@ -9,14 +9,10 @@
 
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    origins [
-      'http://localhost:3000',
-      'https://zilola-nazarova.github.io/workspace-reservation-front-end',
-      'https://workspace-reservation-q154.onrender.com/'
-      ]
+    origins '*'
 
     resource '/api/v1/*',
       headers: :any,
-      methods: [:get, :post, :put, :patch, :delete, :options, :head], credentials: true
+      methods: [:get, :post, :put, :patch, :delete, :options, :head]
   end
 end
