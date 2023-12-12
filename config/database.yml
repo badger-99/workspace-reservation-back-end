@@ -1,0 +1,20 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  username: <%= Rails.application.credentials.postgres[:username] %>
+  password: <%= Rails.application.credentials.postgres[:password] %>
+  host: localhost
+  port: 5432
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  database: workspace_reservation
+
+test:
+  <<: *default
+  database: workspace_reservation_test
+
+production:
+  <<: *default
+  url: <%= ENV['DATABASE_URL'] %>
