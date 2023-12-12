@@ -17,4 +17,4 @@ test:
 
 production:
   <<: *default
-  database: workspace_reservation_live
+  url: <%= ENV['DATABASE_URL'] %>
