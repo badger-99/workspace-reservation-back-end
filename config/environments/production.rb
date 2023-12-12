@@ -1,5 +1,9 @@
 require "active_support/core_ext/integer/time"
 
+Rails.application.routes.default_url_options = {
+  host: 'https://workspace-reservation.onrender.com'
+}
+
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
