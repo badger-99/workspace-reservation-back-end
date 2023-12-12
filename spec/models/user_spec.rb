@@ -2,6 +2,11 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   describe 'validations' do
+    it 'has username' do
+      user = User.create(username: 'Bob')
+      expect(user).to be_valid
+    end
+
     it 'has to have a username' do
       user = User.create(username: nil)
       expect(user).not_to be_valid

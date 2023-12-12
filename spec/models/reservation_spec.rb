@@ -3,8 +3,8 @@ require 'rails_helper'
 RSpec.describe Reservation, type: :model do
   before :all do
     @user = User.create(username: 'robot')
-    image = fixture_file_upload('app/assets/images/pizza meme.jpg', 'image/jpg')
-    @workspace = Workspace.create(name: 'name', description: 'testing the model', image:)
+    @image = fixture_file_upload('app/assets/images/pizza meme.jpg', 'image/jpg')
+    @workspace = Workspace.create(name: 'name', description: 'testing the model', image: @image)
     Reservation.create(city: 'Reykjavik', start_date: Date.today, end_date: Date.today,
                        user_id: @user.id, workspace_id: @workspace.id)
   end
@@ -22,6 +22,11 @@ RSpec.describe Reservation, type: :model do
   end
 
   describe 'validations' do
+    it 'is valid with all attributes' do
+      expect(Reservation.new(city: 'Tashkent', start_date: Date.today, end_date: Date.today,
+                             user_id: @user.id, workspace_id: @workspace.id)).to be_valid
+    end
+
     describe 'validates the start date' do
       it 'should be present' do
         reservation = Reservation.new(city: 'Reykjavik', start_date: nil, end_date: Date.today,
