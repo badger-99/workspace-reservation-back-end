@@ -7,7 +7,7 @@ RSpec.describe Workspace, type: :model do
     @taken_workspace = Workspace.create(name: 'workspace', description: 'testing the model', image: @image)
     # sleep(10)
     Reservation.create(city: 'Zagreb', start_date: Date.today, end_date: Date.today,
-      user_id: @user.id, workspace_id: @taken_workspace.id)
+                       user_id: @user.id, workspace_id: @taken_workspace.id)
   end
 
   describe 'validations' do
@@ -51,11 +51,8 @@ RSpec.describe Workspace, type: :model do
     end
 
     it 'destroys the associated reservation when destroyed' do
-
       expect { @taken_workspace.destroy }.to change { Reservation.count }.by(-1)
     end
-
-
   end
 
   describe 'images' do

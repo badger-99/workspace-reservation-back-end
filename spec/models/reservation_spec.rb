@@ -24,7 +24,7 @@ RSpec.describe Reservation, type: :model do
   describe 'validations' do
     it 'is valid with all attributes' do
       expect(Reservation.new(city: 'Tashkent', start_date: Date.today, end_date: Date.today,
-        user_id: @user.id, workspace_id: @workspace.id)).to be_valid
+                             user_id: @user.id, workspace_id: @workspace.id)).to be_valid
     end
 
     describe 'validates the start date' do
