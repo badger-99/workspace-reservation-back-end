@@ -49,9 +49,12 @@ end
 
 gem 'rubocop', '>= 1.0', '< 2.0'
 
+# For connecting to Amazon S3 bucket for storing uploaded images
 gem 'aws-sdk-s3', require: false
 
+# To help include the image url from ActiveStorage Blob table in the Workspace JSON body
 gem 'jsonapi-serializer', '~> 2.2'
 
+# For Swagger-UI API documentation
 gem 'rswag-api'
 gem 'rswag-ui'

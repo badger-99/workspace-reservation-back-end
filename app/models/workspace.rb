@@ -8,6 +8,7 @@ class Workspace < ApplicationRecord
 
   validate :image_presence
 
+  # Returns the image URL from the ActiveStorage Blob table
   def image_url
     Rails.application.routes.url_helpers.url_for(image) if image.attached?
   end
