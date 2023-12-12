@@ -1,5 +1,9 @@
 require "active_support/core_ext/integer/time"
 
+Rails.application.routes.default_url_options = {
+  host: 'https://workspace-reservation.onrender.com'
+}
+
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -20,7 +24,7 @@ Rails.application.configure do
   # config.require_master_key = true
 
   # Disable serving static files from `public/`, relying on NGINX/Apache to do so instead.
-  # config.public_file_server.enabled = false
+  config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present? || ENV['RENDER'].present?
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
   # config.asset_host = "http://assets.example.com"

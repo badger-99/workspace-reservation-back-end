@@ -14,7 +14,7 @@ class Api::V1::SessionsController < Api::V1::ApplicationController
         token:
       }, status: :ok
     else
-      render json: { message: 'User not registered.', errors: @user.errors }, status: :unauthorized
+      render json: { message: 'User not found.' }, status: :unauthorized
     end
   end
 

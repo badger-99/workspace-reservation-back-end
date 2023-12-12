@@ -1,5 +1,5 @@
 class Workspace < ApplicationRecord
-  validates :name, presence: true, allow_blank: false
+  validates :name, presence: true, uniqueness: true, allow_blank: false
   validates :description, presence: true, allow_blank: false
 
   has_one_attached :image
@@ -8,6 +8,7 @@ class Workspace < ApplicationRecord
 
   validate :image_presence
 
+  # Returns the image URL from the ActiveStorage Blob table
   def image_url
     Rails.application.routes.url_helpers.url_for(image) if image.attached?
   end

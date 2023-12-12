@@ -9,7 +9,11 @@
 
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    origins 'http://localhost:3001' # Replace this with your React frontend's origin or you can use '*' to allow all origins and for production you should add your frontend's origin next to the localhost one.
+    origins [
+      'http://localhost:3000',
+      'https://zilola-nazarova.github.io/workspace-reservation-front-end',
+      'https://workspace-reservation-q154.onrender.com/'
+      ]
 
     resource '/api/v1/*',
       headers: :any,

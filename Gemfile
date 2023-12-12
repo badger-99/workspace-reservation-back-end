@@ -39,6 +39,7 @@ gem 'rack-cors'
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem 'debug', platforms: %i[mri windows]
+  gem 'rspec-rails'
 end
 
 group :development do
@@ -46,8 +47,19 @@ group :development do
   # gem "spring"
 end
 
+group :test do
+  # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
+  gem 'database_cleaner'
+end
+
 gem 'rubocop', '>= 1.0', '< 2.0'
 
+# For connecting to Amazon S3 bucket for storing uploaded images
 gem 'aws-sdk-s3', require: false
 
+# To help include the image url from ActiveStorage Blob table in the Workspace JSON body
 gem 'jsonapi-serializer', '~> 2.2'
+
+# For Swagger-UI API documentation
+gem 'rswag-api'
+gem 'rswag-ui'

@@ -36,7 +36,9 @@ The project Kanban board can be found [here](https://github.com/users/badger-99/
 
 - [**Deployed frontend**](https://zilola-nazarova.github.io/workspace-reservation-front-end)
 
-- [**Backend documentation**](https://workspace-reservation.onrender.com/api-docs/index.html)
+- [**Base URL**](https://workspace-reservation.onrender.com)
+- 
+- [**API Documentation**](https://workspace-reservation.onrender.com/api-docs/index.html)
 
 ## 🛠 Built With <a name="built-with"></a>
 
