@@ -29,7 +29,7 @@ RSpec.describe 'Api::V1::WorkspacesControllers', type: :request do
     context 'request for an existing workspace' do
       it 'returns a single workspace' do
         image = fixture_file_upload('app/assets/images/pizza meme.jpg', 'image/jpg')
-        workspace = Workspace.create(name: 'workspace', description: 'for respec testing', image:)
+        workspace = Workspace.create(name: 'workspace', description: 'for respec testing', price_per_day: 10, image:)
         get "/api/v1/workspaces/#{workspace.id}", headers: { Authorization: "Bearer #{@token}" }
 
         json = JSON.parse(response.body).deep_symbolize_keys
@@ -37,6 +37,7 @@ RSpec.describe 'Api::V1::WorkspacesControllers', type: :request do
         expect(response.status).to eq(200)
         expect(json[:workspace][:name]).to eq('workspace')
         expect(json[:workspace][:description]).to eq('for respec testing')
+        expect(json[:workspace][:price_per_day]).to eq(10)
         expect(URI.parse(url)).to be_a(URI::HTTP)
         expect { URI.parse(url) }.not_to raise_error
       end
@@ -59,6 +60,7 @@ RSpec.describe 'Api::V1::WorkspacesControllers', type: :request do
           workspace: {
             name: 'test_workspace',
             description: 'workspace to test the create endpoint',
+            price_per_day: 10,
             image:
           }
         }, headers: { Authorization: "Bearer #{@token}" }
@@ -76,7 +78,8 @@ RSpec.describe 'Api::V1::WorkspacesControllers', type: :request do
         post '/api/v1/workspaces', params: {
           workspace: {
             name: '',
-            description: ''
+            description: '',
+            price_per_day: ''
           }
         }, headers: { Authorization: "Bearer #{@token}" }
 
@@ -91,7 +94,7 @@ RSpec.describe 'Api::V1::WorkspacesControllers', type: :request do
     context 'a delete request for an existing workspace' do
       it 'deletes a workspace' do
         image = fixture_file_upload('app/assets/images/pizza meme.jpg', 'image/jpg')
-        workspace = Workspace.create(name: 'workspace', description: 'for respec testing', image:)
+        workspace = Workspace.create(name: 'workspace', description: 'for respec testing', price_per_day: 10, image:)
         delete "/api/v1/workspaces/#{workspace.id}", headers: { Authorization: "Bearer #{@token}" }
 
         json = JSON.parse(response.body).deep_symbolize_keys
@@ -103,8 +106,9 @@ RSpec.describe 'Api::V1::WorkspacesControllers', type: :request do
     context 'a delete request for an non-existent workspace' do
       it 'returns an error message' do
         image = fixture_file_upload('app/assets/images/pizza meme.jpg', 'image/jpg')
-        workspace = Workspace.create(name: 'workspace', description: 'for respec testing', image:)
-        Workspace.destroy(workspace.id)
+        workspace = Workspace.create(name: 'workspace', description: 'for respec testing', price_per_day: 10, image:)
+        id = workspace.id
+        Workspace.destroy(id)
         delete "/api/v1/workspaces/#{workspace.id}", headers: { Authorization: "Bearer #{@token}" }
 
         expect(response.status).to eq(404)
