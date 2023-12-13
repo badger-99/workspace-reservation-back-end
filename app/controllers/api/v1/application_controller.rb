@@ -5,8 +5,6 @@ class Api::V1::ApplicationController < ActionController::API
   private
 
   def authenticate_request
-    puts 'authenticate_request'
-    puts request.headers['Authorization']
     header = request.headers['Authorization']
     header = header.split.last if header
     decoded = jwt_decode(header)
