@@ -4,38 +4,49 @@ RSpec.describe Workspace, type: :model do
   before :all do
     @user = User.create(username: 'bot')
     @image = fixture_file_upload('app/assets/images/pizza meme.jpg', 'image/jpg')
-    @taken_workspace = Workspace.create(name: 'workspace', description: 'testing the model', image: @image)
+    @taken_workspace = Workspace.create(name: 'workspace', description: 'testing the model', price_per_day: 10,
+                                        image: @image)
     # sleep(10)
     Reservation.create(city: 'Zagreb', start_date: Date.today, end_date: Date.today,
-                       user_id: @user.id, workspace_id: @taken_workspace.id)
+                       user_id: @user.id, workspace_id: @taken_workspace.id, reservation_cost: 100.10)
   end
 
   describe 'validations' do
-    it 'is valid with attributes (name, description, image)' do
-      expect(Workspace.new(name: 'valid', description: 'testing the model', image: @image)).to be_valid
+    it 'is valid with attributes (name, description, price_per_day, image)' do
+      expect(Workspace.new(name: 'valid', description: 'testing the model', price_per_day: 10, image: @image)).to be_valid
     end
 
     describe 'validates the name' do
       it 'has to be present' do
-        expect(Workspace.new(name: nil, description: 'testing the model', image: @image)).not_to be_valid
+        expect(Workspace.new(name: nil, description: 'testing the model', price_per_day: 10, image: @image)).not_to be_valid
       end
 
       it 'has to be unique' do
-        expect(Workspace.new(name: 'workspace', description: 'this one is not unique', image: @image)).not_to be_valid
+        expect(Workspace.new(name: 'workspace', description: 'this one is not unique', price_per_day: 10, image: @image)).not_to be_valid
       end
 
       it 'cannot be blank' do
-        expect(Workspace.new(name: '', description: 'testing the model', image: @image)).not_to be_valid
+        expect(Workspace.new(name: '', description: 'testing the model', price_per_day: 10, image: @image)).not_to be_valid
       end
     end
 
     describe 'validates the description' do
       it 'has to be present' do
-        expect(Workspace.new(name: 'name', description: nil, image: @image)).not_to be_valid
+        expect(Workspace.new(name: 'name', description: nil, price_per_day: 10, image: @image)).not_to be_valid
       end
 
       it 'cannot be blank' do
-        expect(Workspace.new(name: 'name', description: '', image: @image)).not_to be_valid
+        expect(Workspace.new(name: 'name', description: '', price_per_day: 10, image: @image)).not_to be_valid
+      end
+    end
+
+    describe 'validates the price_per_day' do
+      it 'has to be present' do
+        expect(Workspace.new(name: 'name', description: 'testing', price_per_day: nil, image: @image)).not_to be_valid
+      end
+
+      it 'cannot be blank' do
+        expect(Workspace.new(name: 'name', description: 'testing', price_per_day: '', image: @image)).not_to be_valid
       end
     end
 
@@ -57,7 +68,8 @@ RSpec.describe Workspace, type: :model do
 
   describe 'images' do
     before :all do
-      @workspace_images = Workspace.create(name: 'images', description: 'testing the model', image: @image)
+      @workspace_images = Workspace.create(name: 'images', description: 'testing the model', price_per_day: 10,
+                                           image: @image)
     end
 
     it 'has one attached image' do
