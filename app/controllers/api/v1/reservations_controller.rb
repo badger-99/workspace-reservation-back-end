@@ -24,6 +24,14 @@ class Api::V1::ReservationsController < Api::V1::ApplicationController
       return
     end
     @reservation = Reservation.new(reservation_params)
+
+    # Same day dates have a 0-day difference, and 2 consecutive dates have a 1-day difference, and so on.
+    # To account for this, 1 is added to the difference between start and end dates to get the total number of days
+    # in those dates.
+    start = Date.parse(params[:start_date])
+    ending = Date.parse(params[:end_date])
+    days = (ending - start) + 1
+    @reservation.reservation_cost = @workspace.price_per_day * days
     @reservation.user_id = @current_user.id
     @reservation.workspace = @workspace
     if @reservation.save
@@ -36,6 +44,6 @@ class Api::V1::ReservationsController < Api::V1::ApplicationController
   private
 
   def reservation_params
-    params.require(:reservation).permit(:start_date, :end_date, :city, :workspace)
+    params.require(:reservation).permit(:start_date, :end_date, :city, :workspace, :reservation_cost)
   end
 end
