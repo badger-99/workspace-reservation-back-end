@@ -24,7 +24,8 @@ class Api::V1::WorkspacesController < Api::V1::ApplicationController
                      workspace: {
                        id: @new_workspace.id,
                        name: @new_workspace.name,
-                       description: @new_workspace.description
+                       description: @new_workspace.description,
+                       price_per_day: @new_workspace.price_per_day
                      } }, status: :created
     else
       render json: { error: 'workspace has not been created.' }, status: :bad_request
@@ -43,6 +44,6 @@ class Api::V1::WorkspacesController < Api::V1::ApplicationController
   private
 
   def workspace_params
-    params.require(:workspace).permit(:name, :description, :image)
+    params.require(:workspace).permit(:name, :description, :price_per_day, :image)
   end
 end
