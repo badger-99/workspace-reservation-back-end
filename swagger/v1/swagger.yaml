@@ -10,8 +10,10 @@ info:
       4. Click "Authorize [padlock-icon]", paste it in the "value" field, then click "Authorize".
   version: v1
 servers:
+- url: https://workspace-reservation.onrender.com
+  description: Production server
 - url: http://localhost:3000
-  description: Sandbox server for testing
+  description: Local dev server
 components:
   securitySchemes:
     bearerAuth:
