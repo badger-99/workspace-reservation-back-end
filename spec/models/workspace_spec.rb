@@ -13,20 +13,24 @@ RSpec.describe Workspace, type: :model do
 
   describe 'validations' do
     it 'is valid with attributes (name, description, price_per_day, image)' do
-      expect(Workspace.new(name: 'valid', description: 'testing the model', price_per_day: 10, image: @image)).to be_valid
+      expect(Workspace.new(name: 'valid', description: 'testing the model', price_per_day: 10,
+                           image: @image)).to be_valid
     end
 
     describe 'validates the name' do
       it 'has to be present' do
-        expect(Workspace.new(name: nil, description: 'testing the model', price_per_day: 10, image: @image)).not_to be_valid
+        expect(Workspace.new(name: nil, description: 'testing the model', price_per_day: 10,
+                             image: @image)).not_to be_valid
       end
 
       it 'has to be unique' do
-        expect(Workspace.new(name: 'workspace', description: 'this one is not unique', price_per_day: 10, image: @image)).not_to be_valid
+        expect(Workspace.new(name: 'workspace', description: 'this one is not unique', price_per_day: 10,
+                             image: @image)).not_to be_valid
       end
 
       it 'cannot be blank' do
-        expect(Workspace.new(name: '', description: 'testing the model', price_per_day: 10, image: @image)).not_to be_valid
+        expect(Workspace.new(name: '', description: 'testing the model', price_per_day: 10,
+                             image: @image)).not_to be_valid
       end
     end
 
