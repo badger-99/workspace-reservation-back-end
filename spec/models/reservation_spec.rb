@@ -4,9 +4,9 @@ RSpec.describe Reservation, type: :model do
   before :all do
     @user = User.create(username: 'robot')
     @image = fixture_file_upload('app/assets/images/pizza meme.jpg', 'image/jpg')
-    @workspace = Workspace.create(name: 'name', description: 'testing the model', image: @image)
+    @workspace = Workspace.create(name: 'name', description: 'testing the model', price_per_day: 10, image: @image)
     Reservation.create(city: 'Reykjavik', start_date: Date.today, end_date: Date.today,
-                       user_id: @user.id, workspace_id: @workspace.id)
+                       user_id: @user.id, workspace_id: @workspace.id, reservation_cost: 100.10)
   end
 
   describe 'associations' do
@@ -24,7 +24,7 @@ RSpec.describe Reservation, type: :model do
   describe 'validations' do
     it 'is valid with all attributes' do
       expect(Reservation.new(city: 'Tashkent', start_date: Date.today, end_date: Date.today,
-                             user_id: @user.id, workspace_id: @workspace.id)).to be_valid
+                             user_id: @user.id, workspace_id: @workspace.id, reservation_cost: 100.10)).to be_valid
     end
 
     describe 'validates the start date' do
@@ -93,6 +93,20 @@ RSpec.describe Reservation, type: :model do
       it 'cannot be blank' do
         reservation = Reservation.new(city: 'Miami', start_date: Date.today, end_date: Date.today,
                                       user_id: '', workspace_id: @workspace.id)
+        expect(reservation).not_to be_valid
+      end
+    end
+
+    describe 'validates reservation_cost' do
+      it 'should be present' do
+        reservation = Reservation.new(city: 'Nicosia', start_date: Date.today, end_date: Date.today,
+                                      user_id: @user.id, workspace_id: @workspace.id, reservation_cost: nil)
+        expect(reservation).not_to be_valid
+      end
+
+      it 'cannot be blank' do
+        reservation = Reservation.new(city: 'Miami', start_date: Date.today, end_date: Date.today,
+                                      user_id: @user.id, workspace_id: @workspace.id, reservation_cost: '')
         expect(reservation).not_to be_valid
       end
     end

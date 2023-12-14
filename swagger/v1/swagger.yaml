@@ -93,6 +93,20 @@ paths:
         required: true
         schema:
           type: integer
+      - name: start_date
+        in: query
+        description: YYYY-MM-DD
+        required: true
+        schema:
+          type: string
+          format: date
+      - name: end_date
+        in: query
+        description: YYYY-MM-DD -> has to be same as the start date, or later.
+        required: true
+        schema:
+          type: string
+          format: date
       summary: Creates a new reservation
       security:
         - bearerAuth: []
@@ -274,6 +288,8 @@ paths:
                           type: string
                         description:
                           type: string
+                        price_per_day:
+                          type: integer
                         image_url:
                           type: string
                       required:
@@ -315,12 +331,15 @@ paths:
                   type: string
                 workspace[description]:
                   type: string
+                workspace[price_per_day]:
+                  type: integer
                 workspace[image]:
                   type: string
                   format: binary
               required:
               - workspace[name]
               - workspace[description]
+              - workspace[price_per_day]
               - workspace[image]
   "/api/v1/workspaces/{id}":
     parameters:
@@ -351,6 +370,8 @@ paths:
                         type: string
                       description:
                         type: string
+                      price_per_day:
+                          type: integer
                       image_url:
                         type: string
                     required:
