@@ -98,6 +98,8 @@ Clone this repository to your desired folder:
 
     bundle install
 
+Set your username and password to corresponding fields in [database.yml](./config/database.yml).
+
 Create the database by running the command
 
     rails db:create
