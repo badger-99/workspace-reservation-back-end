@@ -132,15 +132,17 @@ There are separated into several folders, and some are quite large so running al
 
 ### Usage
 
-This is a back-end project. You will need either [this front-end project](https://github.com/Zilola-Nazarova/workspace-reservation-front-end) or the [api-docs](https://workspace-reservation.onrender.com/api-docs/index.html) to interract with it, or you can build your own front-end project. In all cases, you will need to start the server with 
+This is a back-end project. You will need either [this front-end project](https://github.com/Zilola-Nazarova/workspace-reservation-front-end) or the [api-docs](https://workspace-reservation.onrender.com/api-docs/index.html) to interact with it, or you can build your own front-end project. When working with local server, you will need to:
+1. Delete `credentials.yml.enc` and generate new credentials/mater.key pair by running `rails credentials:edit`
+2. Start the server with 
 
     rails s
 
-If working localy, check `./config/enviroments/development.rb` and `./config/enviroments/test.rb` and make sure that `Rails.application.routes.default_url_options` reflects the port that the local server is runing from (e.g. http://localhost:3000 ) so that image uploads can work.
+If working locally, check `./config/environments/development.rb` and `./config/environments/test.rb` and make sure that `Rails.application.routes.default_url_options` reflects the port that the local server is running from (e.g. http://localhost:3000 ) so that image uploads can work.
 
 If using the api-docs, make sure to set the local server in `./swagger/v1/swagger.yaml` before navigating to the api-docs page at `http://{your_default_url}/api-docs`, or refresh the page if you make the change after navigting there.
 
-If you are interested in how to set up your own [Amzon S3 bucket](https://aws.amazon.com/s3/) to use for uploads you can refer to [this guide](https://medium.com/@taylor_8332/active-storage-aws-s3-and-render-a-step-by-step-setup-guide-fd77824bc010) by [Taylor Huffman](https://medium.com/@taylor_8332). The only deviation from the instructions is that we removed `./config/storage.yml` and set the storage configurations in enviroment-specific files in the `./config/storage` directory to prevent the development code from trying to access the S3 bucket.
+If you are interested in how to set up your own [Amzon S3 bucket](https://aws.amazon.com/s3/) to use for uploads you can refer to [this guide](https://medium.com/@taylor_8332/active-storage-aws-s3-and-render-a-step-by-step-setup-guide-fd77824bc010) by [Taylor Huffman](https://medium.com/@taylor_8332). The only deviation from the instructions is that we removed `./config/storage.yml` and set the storage configurations in environment-specific files in the `./config/storage` directory to prevent the development code from trying to access the S3 bucket.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
